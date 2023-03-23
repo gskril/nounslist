@@ -30,10 +30,26 @@ export function Row({ name, options }: RowProps) {
           flex-direction: row;
           align-items: center;
           height: fit-content;
+          position: relative;
+        }
+
+        .row::after {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 5rem;
+          pointer-events: none;
+          background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            var(--color-slate1) 100%
+          );
         }
 
         .name {
-          width: 7rem;
+          min-width: 7rem;
           font-weight: 700;
           font-size: 1.125rem;
           color: var(--color-slate12);
@@ -43,9 +59,11 @@ export function Row({ name, options }: RowProps) {
           gap: 0.75rem;
           display: flex;
           overflow: scroll;
+          padding-right: 2rem;
         }
 
         .option {
+          display: block;
           position: relative;
           min-width: fit-content;
         }
