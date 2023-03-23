@@ -8,7 +8,6 @@ import { EnsName } from '@/components/EnsName'
 import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
-import { Status } from '@/types'
 
 const Layout = styled.div`
   display: flex;
