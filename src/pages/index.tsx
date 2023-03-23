@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import styled from 'styled-components'
 
 import { EnsName } from '@/components/EnsName'
@@ -95,7 +96,6 @@ const ResultsWrapper = styled.div`
 
 export default function Home() {
   const [addresses, setAddresses] = useState<string[]>([])
-  const [status, setStatus] = useState<Status>('idle')
 
   return (
     <>
@@ -125,9 +125,15 @@ export default function Home() {
           </Header>
 
           <Form
-            onSubmit={async (e) =>
-              await handleSubmit(e, setAddresses, setStatus)
-            }
+            onSubmit={async (e) => {
+              const res = handleSubmit(e, setAddresses)
+
+              toast.promise(res, {
+                loading: 'Loading...',
+                success: 'Success!',
+                error: 'Error',
+              })
+            }}
           >
             <Row
               name="DAOs"
@@ -148,12 +154,6 @@ export default function Home() {
               Generate allowlist
             </Button>
           </Form>
-
-          {status === 'loading' ? (
-            <p>Loading...</p>
-          ) : (
-            status === 'error' && <p>Error</p>
-          )}
 
           {addresses.length > 0 && (
             <ResultsWrapper>
@@ -182,8 +182,11 @@ export default function Home() {
               </div>
 
               <Button
-                onClick={() => {
-                  navigator.clipboard.writeText(addresses.join('\n'))
+                onClick={async () => {
+                  await navigator.clipboard
+                    .writeText(addresses.join('\n'))
+                    .then(() => toast.success('Copied to clipboard!'))
+                    .catch(() => toast.error('Failed to copy to clipboard!'))
                 }}
               >
                 Copy to clipboard
@@ -192,6 +195,8 @@ export default function Home() {
           )}
         </Layout>
       </Container>
+
+      <Toaster position="bottom-center" />
     </>
   )
 }
