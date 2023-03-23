@@ -1,7 +1,10 @@
 import { gql, request } from 'graphql-request'
-import { FormEvent } from 'react'
+import { Dispatch, FormEvent, SetStateAction } from 'react'
 
-export async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+export async function handleSubmit(
+  e: FormEvent<HTMLFormElement>,
+  setAddresses: Dispatch<SetStateAction<string[]>>
+) {
   e.preventDefault()
 
   const query = gql`
