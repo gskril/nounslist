@@ -1,6 +1,17 @@
 import { gql, request } from 'graphql-request'
 import { Dispatch, FormEvent, SetStateAction } from 'react'
 
+type TokenResponse = {
+  tokens: {
+    dao: {
+      id: string
+      name: string
+    }
+    owner: string
+    tokenId: number
+  }[]
+}
+
 export async function handleSubmit(
   e: FormEvent<HTMLFormElement>,
   setAddresses: Dispatch<SetStateAction<string[]>>
@@ -23,10 +34,11 @@ export async function handleSubmit(
     }
   `
 
-  const data = await request<unknown>(
+  const data = await request<TokenResponse>(
     'https://nouns-data.up.railway.app/graphql',
     query
   )
 
-  console.log(data)
+  const addresses = data.tokens.map((token) => token.owner)
+  setAddresses(addresses)
 }

@@ -29,19 +29,21 @@ const Form = styled.form`
   gap: 1rem;
 `
 
-const Results = styled.div`
-  width: 100%;
-  padding: 1rem;
-  max-height: 25rem;
-  position: relative;
-  border-radius: 0.625rem;
-  border: 0.09375rem solid var(--color-slate8);
-  overflow: scroll;
-
+const ResultsWrapper = styled.div`
   .result-count {
-    position: absolute;
-    right: 1rem;
-    top: -1.5rem;
+    display: block;
+    text-align: right;
+    padding: 0 0.875rem 0.25rem;
+  }
+
+  .results {
+    width: 100%;
+    padding: 1rem;
+    max-height: 25rem;
+    position: relative;
+    border-radius: 0.625rem;
+    border: 0.09375rem solid var(--color-slate8);
+    overflow: scroll;
   }
 
   table {
@@ -67,7 +69,7 @@ const Results = styled.div`
     tr {
       th:first-child,
       td:first-child {
-        max-width: 22rem;
+        min-width: 24rem;
       }
     }
 
@@ -86,21 +88,7 @@ const Results = styled.div`
 `
 
 export default function Home() {
-  const [isMounted, setIsMounted] = useState(false)
-  useEffect(() => setIsMounted(true), [])
-
-  const [addresses, setAddresses] = useState<string[]>([
-    '0x983110309620D911731Ac0932219af06091b6744',
-    '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
-    '0x179A862703a4adfb29896552DF9e307980D19285',
-    '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
-    '0x179A862703a4adfb29896552DF9e307980D19285',
-    '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
-    '0x179A862703a4adfb29896552DF9e307980D19285',
-    '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
-    '0x179A862703a4adfb29896552DF9e307980D19285',
-    '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
-  ])
+  const [addresses, setAddresses] = useState<string[]>([])
 
   return (
     <>
@@ -132,7 +120,7 @@ export default function Home() {
           <Form onSubmit={async (e) => await handleSubmit(e, setAddresses)}>
             <Row
               name="DAOs"
-              options={['All', 'Nouns', 'Lil Nouns', 'Gnars', 'Builder']}
+              options={['Nouns', 'Lil Nouns', 'Gnars', 'Builder']}
             />
 
             <Row
@@ -150,30 +138,31 @@ export default function Home() {
             </Button>
           </Form>
 
-          {addresses && (
-            <Results>
+          {addresses.length > 0 && (
+            <ResultsWrapper>
               <span className="result-count">
                 {addresses.length} addresses found
               </span>
-
-              <table>
-                <thead>
-                  <tr>
-                    <th>Address</th>
-                    <th>ENS Name</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {addresses.map((address, i) => (
-                    <tr key={address + i}>
-                      <td>{address}</td>
-                      <td>{isMounted && <EnsName address={address} />}</td>
+              <div className="results">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Address</th>
+                      <th>ENS Name</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </Results>
+                  </thead>
+
+                  <tbody>
+                    {addresses.map((address, i) => (
+                      <tr key={address + i}>
+                        <td>{address}</td>
+                        <td>{<EnsName address={address} />}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </ResultsWrapper>
           )}
         </Layout>
       </Container>

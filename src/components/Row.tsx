@@ -15,6 +15,7 @@ export function Row({ name, options }: RowProps) {
                 type="checkbox"
                 name={option}
                 id={option}
+                disabled
                 value={option}
                 defaultChecked={i === 0}
               />
@@ -80,6 +81,10 @@ export function Row({ name, options }: RowProps) {
           border: 0.09375rem solid var(--color-slate8);
           border-radius: 0.625rem;
           color: var(--color-slate12);
+        }
+
+        label:hover {
+          cursor: not-allowed;
         }
 
         input:checked + label {
