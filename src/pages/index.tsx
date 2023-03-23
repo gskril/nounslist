@@ -7,6 +7,7 @@ import { EnsName } from '@/components/EnsName'
 import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
+import { Status } from '@/types'
 
 const Layout = styled.div`
   display: flex;
@@ -30,10 +31,15 @@ const Form = styled.form`
 `
 
 const ResultsWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
   .result-count {
-    display: block;
-    text-align: right;
-    padding: 0 0.875rem 0.25rem;
+    position: absolute;
+    top: -1.625rem;
+    right: 1rem;
   }
 
   .results {
@@ -89,6 +95,7 @@ const ResultsWrapper = styled.div`
 
 export default function Home() {
   const [addresses, setAddresses] = useState<string[]>([])
+  const [status, setStatus] = useState<Status>('idle')
 
   return (
     <>
@@ -117,7 +124,11 @@ export default function Home() {
             </span>
           </Header>
 
-          <Form onSubmit={async (e) => await handleSubmit(e, setAddresses)}>
+          <Form
+            onSubmit={async (e) =>
+              await handleSubmit(e, setAddresses, setStatus)
+            }
+          >
             <Row
               name="DAOs"
               options={['Nouns', 'Lil Nouns', 'Gnars', 'Builder']}
@@ -138,11 +149,18 @@ export default function Home() {
             </Button>
           </Form>
 
+          {status === 'loading' ? (
+            <p>Loading...</p>
+          ) : (
+            status === 'error' && <p>Error</p>
+          )}
+
           {addresses.length > 0 && (
             <ResultsWrapper>
               <span className="result-count">
                 {addresses.length} addresses found
               </span>
+
               <div className="results">
                 <table>
                   <thead>
@@ -162,6 +180,14 @@ export default function Home() {
                   </tbody>
                 </table>
               </div>
+
+              <Button
+                onClick={() => {
+                  navigator.clipboard.writeText(addresses.join('\n'))
+                }}
+              >
+                Copy to clipboard
+              </Button>
             </ResultsWrapper>
           )}
         </Layout>

@@ -1,6 +1,8 @@
 import { gql, request } from 'graphql-request'
 import { Dispatch, FormEvent, SetStateAction } from 'react'
 
+import { Status } from './types'
+
 type TokenResponse = {
   tokens: {
     dao: {
@@ -14,9 +16,11 @@ type TokenResponse = {
 
 export async function handleSubmit(
   e: FormEvent<HTMLFormElement>,
-  setAddresses: Dispatch<SetStateAction<string[]>>
+  setAddresses: Dispatch<SetStateAction<string[]>>,
+  setStatus: Dispatch<SetStateAction<Status>>
 ) {
   e.preventDefault()
+  setStatus('loading')
 
   const query = gql`
     {
@@ -34,11 +38,18 @@ export async function handleSubmit(
     }
   `
 
-  const data = await request<TokenResponse>(
-    'https://nouns-data.up.railway.app/graphql',
-    query
-  )
+  try {
+    const data = await request<TokenResponse>(
+      'https://nouns-data.up.railway.app/graphql',
+      query
+    )
 
-  const addresses = data.tokens.map((token) => token.owner)
-  setAddresses(addresses)
+    const addresses = data.tokens.map((token) => token.owner)
+    const uniqueAddresses = new Set(addresses)
+    setAddresses(Array.from(uniqueAddresses))
+    setStatus('success')
+  } catch (error) {
+    console.error('Error generating allowlist', error)
+    setStatus('error')
+  }
 }
