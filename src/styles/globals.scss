@@ -1,5 +1,8 @@
 body {
+  font-weight: 500;
   font-family: var(--font-body);
+  background: var(--color-slate1);
+  color: var(--color-slate9);
 }
 
 h1,
@@ -7,6 +10,14 @@ h2,
 h3,
 h4 {
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.0625;
+  color: var(--color-slate12);
   font-family: var(--font-heading);
+}
+
+a {
+  color: var(--color-slate12);
+  text-decoration: none;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
 }
