@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
+import { handleSubmit } from '@/handler'
 
 const Layout = styled.div`
   display: flex;
@@ -44,21 +45,26 @@ export default function Home() {
             <Heading>Create allowlists from the Nouns ecosystem</Heading>
             <span>
               Powered by{' '}
-              <Link href="https://gregskril.com" target="_blank" rel="noopener">
+              <Link
+                href="https://nouns-data.up.railway.app/graphql"
+                target="_blank"
+                rel="noopener"
+              >
                 Nounish API
               </Link>
             </span>
           </Header>
 
-          <Form onSubmit={(e) => e.preventDefault()}>
+          <Form onSubmit={async (e) => await handleSubmit(e)}>
             <Row
               name="DAOs"
               options={['All', 'Nouns', 'Lil Nouns', 'Gnars', 'Builder']}
             />
 
             <Row
-              name="Actions"
+              name="Attributes"
               options={[
+                'Owner',
                 'Won an auction',
                 'Created a proposal',
                 'Voted onchain',

@@ -49,7 +49,7 @@ export function Row({ name, options }: RowProps) {
         }
 
         .name {
-          min-width: 7rem;
+          min-width: 8rem;
           font-weight: 700;
           font-size: 1.125rem;
           color: var(--color-slate12);
