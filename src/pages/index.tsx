@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import { EnsName } from '@/components/EnsName'
 import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
@@ -31,6 +32,7 @@ const Form = styled.form`
 const Results = styled.div`
   width: 100%;
   padding: 1rem;
+  max-height: 25rem;
   position: relative;
   border-radius: 0.625rem;
   border: 0.09375rem solid var(--color-slate8);
@@ -46,26 +48,33 @@ const Results = styled.div`
     width: 100%;
     border-collapse: collapse;
 
-    tr {
-      /* header row */
-      &:nth-child(1) {
-        border-bottom: 0.09375rem solid var(--color-slate5);
+    /* header row */
+    thead tr:first-child {
+      border-bottom: 0.09375rem solid var(--color-slate5);
 
-        th {
-          text-align: left;
-          padding-bottom: 0.375rem;
+      th {
+        text-align: left;
+        padding-bottom: 0.375rem;
 
-          &:last-child {
-            min-width: 10rem;
-          }
+        /* last column */
+        &:last-child {
+          min-width: 10rem;
         }
       }
+    }
 
-      /* first row of data */
-      &:nth-child(2) {
-        td {
-          padding-top: 0.75rem;
-        }
+    /* first column */
+    tr {
+      th:first-child,
+      td:first-child {
+        max-width: 22rem;
+      }
+    }
+
+    /* first row of data */
+    tbody tr:first-child {
+      td {
+        padding-top: 0.75rem;
       }
     }
 
@@ -77,8 +86,11 @@ const Results = styled.div`
 `
 
 export default function Home() {
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => setIsMounted(true), [])
+
   const [addresses, setAddresses] = useState<string[]>([
-    '0x179A862703a4adfb29896552DF9e307980D19285',
+    '0x983110309620D911731Ac0932219af06091b6744',
     '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
     '0x179A862703a4adfb29896552DF9e307980D19285',
     '0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5',
@@ -145,16 +157,21 @@ export default function Home() {
               </span>
 
               <table>
-                <tr>
-                  <th>Address</th>
-                  <th>ENS Name</th>
-                </tr>
-                {addresses.map((address) => (
-                  <tr key={address}>
-                    <td>{address}</td>
-                    <td>TODO</td>
+                <thead>
+                  <tr>
+                    <th>Address</th>
+                    <th>ENS Name</th>
                   </tr>
-                ))}
+                </thead>
+
+                <tbody>
+                  {addresses.map((address, i) => (
+                    <tr key={address + i}>
+                      <td>{address}</td>
+                      <td>{isMounted && <EnsName address={address} />}</td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </Results>
           )}
