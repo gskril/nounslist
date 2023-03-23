@@ -99,12 +99,18 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Web3 Starter</title>
-        <meta name="description" content="" />
+        <title>Nouns Drop</title>
+        <meta
+          name="description"
+          content="Create allowlists from the Nouns ecosystem"
+        />
 
         <meta property="og:image" content="" />
-        <meta property="og:title" content="" />
-        <meta property="og:description" content="" />
+        <meta property="og:title" content="Nouns Drop" />
+        <meta
+          property="og:description"
+          content="Create allowlists from the Nouns ecosystem"
+        />
       </Head>
 
       <Container as="main">
