@@ -1,6 +1,6 @@
 type RowProps = {
   name: string
-  options: string[]
+  options: { label: string; value: string }[]
 }
 
 export function Row({ name, options }: RowProps) {
@@ -10,16 +10,16 @@ export function Row({ name, options }: RowProps) {
         <span className="name">{name}:</span>
         <div className="options">
           {options.map((option, i) => (
-            <div className="option" key={option}>
+            <div className="option" key={option.label}>
               <input
                 type="checkbox"
-                name={option}
-                id={option}
-                disabled
-                value={option}
+                name={name}
+                id={option.value}
+                disabled={name === 'Attributes'}
+                value={option.value}
                 defaultChecked={i === 0}
               />
-              <label htmlFor={option}>{option}</label>
+              <label htmlFor={option.value}>{option.label}</label>
             </div>
           ))}
         </div>
@@ -83,7 +83,11 @@ export function Row({ name, options }: RowProps) {
           color: var(--color-slate12);
         }
 
-        label:hover {
+        input + label:hover {
+          cursor: pointer;
+        }
+
+        input:disabled + label:hover {
           cursor: not-allowed;
         }
 

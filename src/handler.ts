@@ -1,5 +1,6 @@
 import { gql, request } from 'graphql-request'
 import { Dispatch, FormEvent, SetStateAction } from 'react'
+import toast from 'react-hot-toast'
 
 type TokenResponse = {
   tokens: {
@@ -17,11 +18,30 @@ export async function handleSubmit(
   setAddresses: Dispatch<SetStateAction<string[]>>
 ) {
   e.preventDefault()
+  const formData = new FormData(e.currentTarget)
+  const entries = Array.from(formData.entries())
+
+  const checked = entries.reduce((acc, curr) => {
+    const [key, value] = curr as [string, string]
+    if (acc[key]) {
+      acc[key].push(value)
+    } else {
+      acc[key] = [value]
+    }
+    return acc
+  }, {} as { [key: string]: string[] })
+
+  const daos = checked['DAOs']
+  const attributes = checked['Attributes']
+
+  if (!daos || daos.length === 0) {
+    throw new Error('Please select at least one DAO')
+  }
 
   const query = gql`
-    {
+    query ($daos: [ID!]!) {
       tokens(
-        where: { dao: "0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03" }
+        where: { dao_in: $daos }
         orderBy: "tokenId"
         orderDirection: "desc"
       ) {
@@ -36,7 +56,10 @@ export async function handleSubmit(
 
   const data = await request<TokenResponse>(
     'https://nouns-data.up.railway.app/graphql',
-    query
+    query,
+    {
+      daos,
+    }
   )
 
   const addresses = data.tokens.map((token) => token.owner)

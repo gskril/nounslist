@@ -66,6 +66,7 @@ const ResultsWrapper = styled.div`
 
         /* last column */
         &:last-child {
+          width: 100%;
           min-width: 10rem;
         }
       }
@@ -95,7 +96,7 @@ const ResultsWrapper = styled.div`
 
 export default function Home() {
   const [addresses, setAddresses] = useState<string[]>([])
-  const ensNames = useEnsNames(addresses)
+  const { names: ensNames, isLoading: ensNamesLoading } = useEnsNames(addresses)
 
   return (
     <>
@@ -137,22 +138,39 @@ export default function Home() {
               toast.promise(res, {
                 loading: 'Loading...',
                 success: 'Success!',
-                error: 'Error',
+                error: (err) => `${err.toString().replace('Error: ', '')}`,
               })
             }}
           >
             <Row
               name="DAOs"
-              options={['Nouns', 'Lil Nouns', 'Gnars', 'Builder']}
+              options={[
+                {
+                  label: 'Nouns',
+                  value: '0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03',
+                },
+                {
+                  label: 'Lil Nouns',
+                  value: '0x4b10701bfd7bfedc47d50562b76b436fbb5bdb3b',
+                },
+                {
+                  label: 'Gnars',
+                  value: '0x558BFFF0D583416f7C4e380625c7865821b8E95C',
+                },
+                {
+                  label: 'Builder',
+                  value: '0xdf9b7d26c8fc806b1ae6273684556761ff02d422',
+                },
+              ]}
             />
 
             <Row
               name="Attributes"
               options={[
-                'Owner',
-                'Won an auction',
-                'Created a proposal',
-                'Voted onchain',
+                { label: 'Owner', value: 'owner' },
+                { label: 'Won an auction', value: 'auction-winner' },
+                { label: 'Created a proposal', value: 'proposal-creator' },
+                { label: 'Voted onchain', value: 'voter' },
               ]}
             />
 
@@ -172,7 +190,7 @@ export default function Home() {
                   <thead>
                     <tr>
                       <th>Address</th>
-                      <th>ENS Name</th>
+                      <th>ENS Name {ensNamesLoading && '(loading...)'}</th>
                     </tr>
                   </thead>
 
@@ -180,7 +198,7 @@ export default function Home() {
                     {addresses.map((address, i) => (
                       <tr key={address + i}>
                         <td>{address}</td>
-                        <td>{ensNames[i]}</td>
+                        {!ensNamesLoading && <td>{ensNames[i]}</td>}
                       </tr>
                     ))}
                   </tbody>

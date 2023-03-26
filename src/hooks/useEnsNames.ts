@@ -9,11 +9,13 @@ const ENSInstance = new ENS()
 
 export function useEnsNames(addresses?: string[]) {
   const [names, setNames] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
     async function fetchEnsNames() {
       if (!addresses || addresses.length === 0) return
       await ENSInstance.setProvider(jsonProvider)
+      setIsLoading(true)
 
       const batches = breakIntoChunks(100, addresses)
 
@@ -30,11 +32,12 @@ export function useEnsNames(addresses?: string[]) {
         (name, i) => name?.name || truncateAddress(addresses[i])
       )
       setNames(names)
+      setIsLoading(false)
     }
 
     fetchEnsNames()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addresses])
 
-  return names
+  return { names, isLoading }
 }
