@@ -12,6 +12,7 @@
     "prettier:fix": "prettier --write src/**/*"
   },
   "dependencies": {
+    "@ensdomains/ensjs": "^3.0.0-alpha.52",
     "@rainbow-me/rainbowkit": "^0.12.2",
     "ethers": "^5",
     "graphql": "^16.6.0",

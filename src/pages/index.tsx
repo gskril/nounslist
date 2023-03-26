@@ -4,10 +4,10 @@ import { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import styled from 'styled-components'
 
-import { EnsName } from '@/components/EnsName'
 import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
+import { useEnsNames } from '@/hooks/useEnsNames'
 
 const Layout = styled.div`
   display: flex;
@@ -95,6 +95,7 @@ const ResultsWrapper = styled.div`
 
 export default function Home() {
   const [addresses, setAddresses] = useState<string[]>([])
+  const ensNames = useEnsNames(addresses)
 
   return (
     <>
@@ -179,7 +180,7 @@ export default function Home() {
                     {addresses.map((address, i) => (
                       <tr key={address + i}>
                         <td>{address}</td>
-                        <td>{<EnsName address={address} />}</td>
+                        <td>{ensNames[i]}</td>
                       </tr>
                     ))}
                   </tbody>

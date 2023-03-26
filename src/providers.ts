@@ -1,3 +1,4 @@
+import { JsonRpcProvider } from '@ethersproject/providers'
 import { getDefaultWallets } from '@rainbow-me/rainbowkit'
 import { configureChains, createClient } from 'wagmi'
 import { goerli, mainnet } from 'wagmi/chains'
@@ -5,6 +6,10 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
 const ALCHEMY_ID = process.env.NEXT_PUBLIC_ALCHEMY_ID || ''
+
+export const jsonProvider = new JsonRpcProvider(
+  `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_ID}`
+)
 
 export const { chains, provider } = configureChains(
   [mainnet, goerli],
