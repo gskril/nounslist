@@ -161,6 +161,10 @@ export default function Home() {
                   label: 'Builder',
                   value: '0xdf9b7d26c8fc806b1ae6273684556761ff02d422',
                 },
+                {
+                  label: 'Purple',
+                  value: '0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60',
+                },
               ]}
             />
 
