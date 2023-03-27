@@ -190,15 +190,21 @@ export default function Home() {
                   <thead>
                     <tr>
                       <th>Address</th>
-                      <th>ENS Name {ensNamesLoading && '(loading...)'}</th>
+                      <th>ENS Name</th>
                     </tr>
                   </thead>
 
                   <tbody>
                     {addresses.map((address, i) => (
-                      <tr key={address + i}>
+                      <tr key={address}>
                         <td>{address}</td>
-                        {!ensNamesLoading && <td>{ensNames[i]}</td>}
+                        <td>
+                          {ensNamesLoading
+                            ? i === 0
+                              ? 'loading...'
+                              : ''
+                            : ensNames[i]}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
