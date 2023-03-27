@@ -36,6 +36,11 @@ export function useEnsNames(addresses?: string[]) {
     }
 
     fetchEnsNames()
+
+    return () => {
+      setNames([])
+      setIsLoading(false)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addresses])
 

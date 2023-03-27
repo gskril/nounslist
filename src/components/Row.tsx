@@ -15,7 +15,6 @@ export function Row({ name, options }: RowProps) {
                 type="checkbox"
                 name={name}
                 id={option.value}
-                disabled={name === 'Attributes'}
                 value={option.value}
                 defaultChecked={i === 0}
               />

@@ -167,7 +167,7 @@ export default function Home() {
             <Row
               name="Attributes"
               options={[
-                { label: 'Owner', value: 'owner' },
+                { label: 'Owner', value: 'token-owner' },
                 { label: 'Won an auction', value: 'auction-winner' },
                 { label: 'Created a proposal', value: 'proposal-creator' },
                 { label: 'Voted onchain', value: 'voter' },
