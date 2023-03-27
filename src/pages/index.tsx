@@ -182,7 +182,8 @@ export default function Home() {
           {addresses.length > 0 && (
             <ResultsWrapper>
               <span className="result-count">
-                {addresses.length} addresses found
+                {new Intl.NumberFormat().format(addresses.length)} addresses
+                found
               </span>
 
               <div className="results">

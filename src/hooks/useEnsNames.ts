@@ -17,13 +17,21 @@ export function useEnsNames(addresses?: string[]) {
       await ENSInstance.setProvider(jsonProvider)
       setIsLoading(true)
 
-      const batches = breakIntoChunks(100, addresses)
+      const batches = breakIntoChunks(150, addresses)
 
       const results = []
       for (const batch of batches) {
         const batched = await ENSInstance.batch(
           ...batch.map((address) => ENSInstance.getName.batch(address))
         )
+
+        if (!batched) {
+          // TODO: figure out why some batches are skipped
+          // temporary workaround: push empty items to keep the array length the same
+          results.push(batch.map(() => undefined))
+          continue
+        }
+
         results.push(batched)
       }
 

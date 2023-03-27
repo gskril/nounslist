@@ -1,40 +1,7 @@
 import { gql, request } from 'graphql-request'
 import { Dispatch, FormEvent, SetStateAction } from 'react'
-import toast from 'react-hot-toast'
 
-type DAO = {
-  id: string
-  name: string
-}
-
-type TokenResponse = {
-  tokens?: {
-    dao: DAO
-    owner: string
-    tokenId: number
-  }[]
-  auctions?: {
-    dao: DAO
-    winner: string
-    tokenId: number
-  }[]
-  proposals?: {
-    dao: DAO
-    proposer: string
-    proposalId: number
-  }[]
-  voteCastEvents?: {
-    dao: DAO
-    voter: string
-    proposalId: number
-  }[]
-}
-
-type Attributes =
-  | 'token-owner'
-  | 'auction-winner'
-  | 'proposal-creator'
-  | 'voter'
+import { Attributes, TokenResponse } from './types'
 
 export async function handleSubmit(
   e: FormEvent<HTMLFormElement>,
@@ -57,11 +24,11 @@ export async function handleSubmit(
   const daos = checked['DAOs']
   const attributes = checked['Attributes'] as Attributes[]
 
-  if (!daos || daos.length === 0) {
+  if (!daos) {
     throw new Error('Please select at least one DAO')
   }
 
-  if (!attributes || attributes.length === 0) {
+  if (!attributes) {
     throw new Error('Please select at least one attribute')
   }
 
@@ -103,8 +70,6 @@ export async function handleSubmit(
       queryVotes: attributes.includes('voter'),
     }
   )
-
-  console.log(data)
 
   if (!data) {
     throw new Error('No data found')
