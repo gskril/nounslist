@@ -49,6 +49,7 @@ const ResultsWrapper = styled.div`
     max-height: 25rem;
     position: relative;
     border-radius: 0.625rem;
+    background-color: var(--color-background);
     border: 0.09375rem solid var(--color-border);
     overflow: scroll;
   }
@@ -261,7 +262,7 @@ function PoweredBy() {
         <span>
           Powered by{' '}
           <Link
-            href="https://nouns-data.up.railway.app/graphql"
+            href="https://nounish-api-web.vercel.app/"
             target="_blank"
             rel="noopener"
             onFocus={() => setHovered(true)}

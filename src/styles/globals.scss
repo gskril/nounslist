@@ -1,7 +1,8 @@
 body {
   font-weight: 500;
   font-family: var(--font-body);
-  background: var(--color-background);
+  background-color: var(--color-background);
+  background: radial-gradient(#eef5ff, var(--color-background));
   color: var(--color-light-text);
 }
 

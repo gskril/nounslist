@@ -92,7 +92,7 @@ export function Row({ name, options }: RowProps) {
         }
 
         input:checked + label {
-          background-color: var(--color-accent);
+          background-color: var(--color-background);
           border-color: var(--color-dark-text);
         }
       `}</style>
