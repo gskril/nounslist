@@ -100,6 +100,7 @@ export async function handleSubmit(
   }
 
   if (!addresses || addresses.length === 0) {
+    setAddresses([])
     throw new Error('No addresses found')
   }
 
