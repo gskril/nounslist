@@ -28,7 +28,7 @@ const Header = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
 `
 
 const ResultsWrapper = styled.div`

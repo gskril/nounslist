@@ -27,25 +27,35 @@ export function Row({ name, options }: RowProps) {
       <style jsx>{`
         .row {
           display: flex;
+          gap: 0.5rem;
           flex-direction: row;
           align-items: center;
           height: fit-content;
           position: relative;
         }
 
-        .row::after {
-          content: '';
-          position: absolute;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: 5rem;
-          pointer-events: none;
-          background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0) 0%,
-            var(--color-background) 100%
-          );
+        @media screen and (max-width: 520px) {
+          .row {
+            align-items: unset;
+            flex-direction: column;
+          }
+        }
+
+        @media screen and (max-width: 768px) {
+          .row::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 5rem;
+            pointer-events: none;
+            background: linear-gradient(
+              90deg,
+              rgba(255, 255, 255, 0) 0%,
+              var(--color-background) 100%
+            );
+          }
         }
 
         .name {
@@ -60,6 +70,8 @@ export function Row({ name, options }: RowProps) {
           display: flex;
           overflow: scroll;
           padding-right: 2rem;
+          padding-bottom: 0.75rem;
+          margin-bottom: -0.5rem;
         }
 
         .option {
