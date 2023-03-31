@@ -8,6 +8,7 @@ export async function handleSubmit(
   setAddresses: Dispatch<SetStateAction<string[]>>
 ) {
   e.preventDefault()
+  setAddresses([])
   const formData = new FormData(e.currentTarget)
   const entries = Array.from(formData.entries())
 

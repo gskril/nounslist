@@ -4,6 +4,7 @@ import { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import styled from 'styled-components'
 
+import { Loader } from '@/components/Loader'
 import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
@@ -96,6 +97,7 @@ const ResultsWrapper = styled.div`
 `
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [addresses, setAddresses] = useState<string[]>([])
   const { names: ensNames, isLoading: ensNamesLoading } = useEnsNames(addresses)
 
@@ -125,12 +127,19 @@ export default function Home() {
 
           <Form
             onSubmit={async (e) => {
+              setIsLoading(true)
               const res = handleSubmit(e, setAddresses)
 
               toast.promise(res, {
                 loading: 'Loading...',
-                success: 'Success!',
-                error: (err) => `${err.toString().replace('Error: ', '')}`,
+                success: () => {
+                  setIsLoading(false)
+                  return 'Success!'
+                },
+                error: (err) => {
+                  setIsLoading(false)
+                  return `${err.toString().replace('Error: ', '')}`
+                },
               })
             }}
           >
@@ -174,6 +183,12 @@ export default function Home() {
               Generate allowlist
             </Button>
           </Form>
+
+          {isLoading && (
+            <div style={{ width: '4rem', opacity: 0.8 }}>
+              <Loader />
+            </div>
+          )}
 
           {addresses.length > 0 && (
             <ResultsWrapper>
