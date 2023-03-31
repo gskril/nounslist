@@ -105,6 +105,7 @@ export default function Home() {
     <>
       <Head>
         <title>Nouns Drop</title>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta
           name="description"
           content="Create allowlists from the Nouns ecosystem"
