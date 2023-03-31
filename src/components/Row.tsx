@@ -44,7 +44,7 @@ export function Row({ name, options }: RowProps) {
           background: linear-gradient(
             90deg,
             rgba(255, 255, 255, 0) 0%,
-            var(--color-slate1) 100%
+            var(--color-background) 100%
           );
         }
 
@@ -52,7 +52,7 @@ export function Row({ name, options }: RowProps) {
           min-width: 8rem;
           font-weight: 700;
           font-size: 1.125rem;
-          color: var(--color-slate12);
+          color: var(--color-body);
         }
 
         .options {
@@ -77,9 +77,10 @@ export function Row({ name, options }: RowProps) {
           display: block;
           padding: 0.375rem 0.875rem;
           background-color: transparent;
-          border: 0.09375rem solid var(--color-slate8);
+          border: 0.09375rem solid var(--color-border);
           border-radius: 0.625rem;
-          color: var(--color-slate12);
+          color: var(--color-body);
+          transition: all 0.15s ease-in-out;
         }
 
         input + label:hover {
@@ -91,7 +92,8 @@ export function Row({ name, options }: RowProps) {
         }
 
         input:checked + label {
-          background-color: var(--color-slate5);
+          background-color: var(--color-accent);
+          border-color: var(--color-dark-text);
         }
       `}</style>
     </>

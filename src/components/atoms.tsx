@@ -32,9 +32,9 @@ export const Button = styled.button`
   display: block;
   width: fit-content;
   padding: 0.625rem 1.5rem;
-  background: var(--color-slate12);
+  background: var(--color-dark-text);
   border: none;
-  color: var(--color-slate1);
+  color: var(--color-background);
   border-radius: 0.625rem;
   transition: opacity 0.1s ease-in-out;
 

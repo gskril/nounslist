@@ -48,7 +48,7 @@ const ResultsWrapper = styled.div`
     max-height: 25rem;
     position: relative;
     border-radius: 0.625rem;
-    border: 0.09375rem solid var(--color-slate8);
+    border: 0.09375rem solid var(--color-border);
     overflow: scroll;
   }
 
@@ -58,11 +58,12 @@ const ResultsWrapper = styled.div`
 
     /* header row */
     thead tr:first-child {
-      border-bottom: 0.09375rem solid var(--color-slate5);
+      border-bottom: 0.09375rem solid var(--color-accent);
 
       th {
         text-align: left;
         padding-bottom: 0.375rem;
+        color: var(--color-dark-text);
 
         /* last column */
         &:last-child {
