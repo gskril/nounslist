@@ -9,6 +9,7 @@ import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
 import { useEnsNames } from '@/hooks/useEnsNames'
+import { mq } from '@/styles/breakpoints'
 
 const Layout = styled.div`
   display: flex;
@@ -45,7 +46,7 @@ const ResultsWrapper = styled.div`
 
   .results {
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     max-height: 25rem;
     position: relative;
     border-radius: 0.625rem;
@@ -80,6 +81,10 @@ const ResultsWrapper = styled.div`
       th:first-child,
       td:first-child {
         min-width: 24rem;
+
+        @media ${mq.sm.min} {
+          min-width: 32rem;
+        }
       }
     }
 
@@ -92,7 +97,7 @@ const ResultsWrapper = styled.div`
 
     th,
     td {
-      padding: 0.5rem 3rem 0.5rem 1rem;
+      padding: 0.5rem 3rem 0.5rem 0.75rem;
     }
   }
 `

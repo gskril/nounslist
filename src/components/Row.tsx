@@ -70,6 +70,7 @@ export function Row({ name, options }: RowProps) {
           display: flex;
           overflow: scroll;
           padding-right: 2rem;
+          padding-top: 1px;
           padding-bottom: 0.75rem;
           margin-bottom: -0.5rem;
         }
@@ -78,6 +79,12 @@ export function Row({ name, options }: RowProps) {
           display: block;
           position: relative;
           min-width: fit-content;
+          transition: all 0.1s ease-in-out;
+        }
+
+        .option:hover label {
+          transform: translateY(-1px);
+          background-color: var(--color-background);
         }
 
         input {

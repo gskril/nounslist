@@ -36,10 +36,11 @@ export const Button = styled.button`
   border: none;
   color: var(--color-background);
   border-radius: 0.625rem;
-  transition: opacity 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 
   &:hover {
     cursor: pointer;
+    transform: translateY(-1px);
     opacity: 0.8;
   }
 `
