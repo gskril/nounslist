@@ -2,14 +2,18 @@ import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import PlausibleProvider from 'next-plausible'
 import type { AppProps } from 'next/app'
-import { Public_Sans, Urbanist } from 'next/font/google'
+import { Londrina_Solid, Public_Sans } from 'next/font/google'
+import localFont from 'next/font/local'
 import { WagmiConfig } from 'wagmi'
 
 import { chains, wagmiClient } from '@/providers'
 import '@/styles/style.scss'
 
-const urbanist = Urbanist({ subsets: ['latin'] })
-const publicSans = Public_Sans({ subsets: ['latin'] })
+const ptRoot = localFont({ src: '..//assets/pt-root-ui_vf.ttf' })
+const londrina = Londrina_Solid({
+  subsets: ['latin'],
+  weight: ['300', '400'],
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,8 +21,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <style jsx global>{`
         :root {
           --font-fallback: system-ui, 'Helvetica Neue', sans-serif;
-          --font-heading: ${urbanist.style.fontFamily}, var(--font-fallback);
-          --font-body: ${publicSans.style.fontFamily}, var(--font-fallback);
+          --font-heading: ${londrina.style.fontFamily}, var(--font-fallback);
+          --font-body: ${ptRoot.style.fontFamily}, var(--font-fallback);
         }
       `}</style>
 

@@ -2,7 +2,6 @@ body {
   font-weight: 500;
   font-family: var(--font-body);
   background-color: var(--color-background);
-  background: radial-gradient(#eef5ff, var(--color-background));
   color: var(--color-light-text);
 }
 
@@ -10,7 +9,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.0625;
   color: var(--color-dark-text);
   font-family: var(--font-heading);

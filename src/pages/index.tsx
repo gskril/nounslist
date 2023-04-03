@@ -1,10 +1,11 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import styled from 'styled-components'
 
 import { Loader } from '@/components/Loader'
+import { Noggles } from '@/components/Noggles'
+import { PoweredBy } from '@/components/PoweredBy'
 import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
@@ -20,10 +21,54 @@ const Layout = styled.div`
 `
 
 const Header = styled.div`
-  display: flex;
+  display: grid;
+  gap: 2rem;
   flex-direction: column;
-  gap: 1rem;
-  font-weight: 700;
+
+  @media ${mq.sm.min} {
+    grid-template-columns: 1fr 2.25fr;
+    flex-direction: row;
+  }
+
+  .left {
+    --offset: 1.625rem;
+
+    gap: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    line-height: 0.8;
+    width: 10rem;
+
+    @media ${mq.sm.min} {
+      width: 13rem;
+    }
+
+    @media ${mq.lg.min} {
+      transform: translateX(calc(-1 * var(--offset)));
+    }
+
+    span {
+      font-size: 5rem;
+      color: var(--color-primary);
+      font-family: var(--font-heading);
+      transform: translateX(1.625rem);
+
+      @media ${mq.sm.min} {
+        font-size: 6.375rem;
+        transform: translateX(2rem);
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media ${mq.sm.min} {
+      gap: 1.25rem;
+    }
+  }
 `
 
 const Form = styled.form`
@@ -50,7 +95,7 @@ const ResultsWrapper = styled.div`
     max-height: 25rem;
     position: relative;
     border-radius: 0.625rem;
-    background-color: var(--color-background);
+    background-color: var(--color-base);
     border: 0.09375rem solid var(--color-border);
     overflow: scroll;
   }
@@ -58,6 +103,7 @@ const ResultsWrapper = styled.div`
   table {
     width: 100%;
     border-collapse: collapse;
+    color: var(--color-dark-text);
 
     /* header row */
     thead tr:first-child {
@@ -66,7 +112,6 @@ const ResultsWrapper = styled.div`
       th {
         text-align: left;
         padding-bottom: 0.375rem;
-        color: var(--color-dark-text);
 
         /* last column */
         &:last-child {
@@ -99,6 +144,15 @@ const ResultsWrapper = styled.div`
     td {
       padding: 0.5rem 3rem 0.5rem 0.75rem;
     }
+
+    td {
+      font-weight: 400;
+
+      &[data-ens='false'] {
+        opacity: 0.6;
+        color: var(--color-light-text);
+      }
+    }
   }
 `
 
@@ -128,8 +182,14 @@ export default function Home() {
       <Container as="main">
         <Layout>
           <Header>
-            <Heading>Create allowlists from the Nouns ecosystem</Heading>
-            <PoweredBy />
+            <div className="left">
+              <Noggles />
+              <span>LIST</span>
+            </div>
+            <div className="right">
+              <Heading>Create allowlists from the Nouns ecosystem</Heading>
+              <PoweredBy />
+            </div>
           </Header>
 
           <Form
@@ -217,7 +277,9 @@ export default function Home() {
                     {addresses.map((address, i) => (
                       <tr key={address}>
                         <td>{address}</td>
-                        <td>
+                        <td
+                          data-ens={ensNames[i]?.includes('...') ? false : true}
+                        >
                           {ensNamesLoading
                             ? i === 0
                               ? 'loading...'
@@ -246,75 +308,6 @@ export default function Home() {
       </Container>
 
       <Toaster position="bottom-center" />
-    </>
-  )
-}
-
-function PoweredBy() {
-  const [hovered, setHovered] = useState(false)
-
-  return (
-    <>
-      <div
-        style={{
-          position: 'relative',
-          width: 'fit-content',
-          paddingBottom: hovered ? '2rem' : '0',
-          transition: 'all 0.2s ease-in-out',
-        }}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <span>
-          Powered by{' '}
-          <Link
-            href="https://nounish-api-web.vercel.app/"
-            target="_blank"
-            rel="noopener"
-            onFocus={() => setHovered(true)}
-            onBlur={() => setHovered(false)}
-          >
-            <span className="hover-target" onMouseOver={() => setHovered(true)}>
-              Nounish API
-            </span>
-          </Link>
-          {hovered && (
-            <span className="tooltip">
-              Free, open-source data for nounish builders ⌐◨-◨
-            </span>
-          )}
-        </span>
-      </div>
-
-      <style jsx>{`
-        .hover-target:hover,
-        .hover-target:focus-visible {
-          opacity: 0.8;
-        }
-
-        .tooltip {
-          position: absolute;
-          top: 1.75rem;
-          left: 0;
-          padding: 0.5rem 0.75rem;
-          font-size: 0.875rem;
-          font-weight: 400;
-          width: 13rem;
-          border-radius: 0.25rem;
-          color: var(--color-background);
-          background-color: var(--color-body);
-          opacity: 0;
-          animation: fadeIn 0.15s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-      `}</style>
     </>
   )
 }

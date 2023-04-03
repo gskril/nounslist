@@ -84,7 +84,7 @@ export function Row({ name, options }: RowProps) {
 
         .option:hover label {
           transform: translateY(-1px);
-          background-color: var(--color-background);
+          background-color: var(--color-base);
         }
 
         input {
@@ -111,8 +111,16 @@ export function Row({ name, options }: RowProps) {
         }
 
         input:checked + label {
-          background-color: var(--color-background);
-          border-color: var(--color-dark-text);
+          color: var(--color-base);
+          background-color: var(--color-primary);
+          border-color: var(--color-primary);
+        }
+
+        .option:hover input:checked + label {
+          opacity: 0.85;
+          color: var(--color-base);
+          background-color: var(--color-primary);
+          border-color: var(--color-primary);
         }
       `}</style>
     </>

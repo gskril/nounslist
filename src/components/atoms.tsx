@@ -17,22 +17,22 @@ export const Container = styled.div`
 
 export const Heading = styled.h1`
   font-size: 2rem;
-  font-weight: 800;
 
   @media ${mq.xs.min} {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   @media ${mq.md.min} {
-    font-size: 4rem;
+    font-size: 3.25rem;
   }
 `
 
 export const Button = styled.button`
   display: block;
   width: fit-content;
-  padding: 0.625rem 1.5rem;
-  background: var(--color-dark-text);
+  font-size: 1.125rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--color-primary);
   border: none;
   color: var(--color-background);
   border-radius: 0.625rem;
@@ -41,6 +41,6 @@ export const Button = styled.button`
   &:hover {
     cursor: pointer;
     transform: translateY(-1px);
-    opacity: 0.8;
+    opacity: 0.85;
   }
 `

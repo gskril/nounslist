@@ -25,7 +25,7 @@ export function Loader() {
         <g
           id="frame"
           style={{
-            fill: `var(--color-text-dark)`,
+            fill: `var(--color-primary)`,
           }}
         >
           <path
