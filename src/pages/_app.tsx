@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
         }
       `}</style>
 
-      <PlausibleProvider domain="example.com" trackOutboundLinks>
+      <PlausibleProvider domain="nounslist.com" trackOutboundLinks>
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider chains={chains} modalSize="compact">
             <Component {...pageProps} />
