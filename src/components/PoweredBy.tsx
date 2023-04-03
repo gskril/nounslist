@@ -18,7 +18,7 @@ export function PoweredBy() {
         <span>
           Powered by{' '}
           <Link
-            href="https://nounish-api-web.vercel.app/"
+            href="https://nounishdata.com/"
             target="_blank"
             rel="noopener"
             onFocus={() => setHovered(true)}
