@@ -52,7 +52,6 @@ export function PoweredBy() {
           left: 0;
           padding: 0.5rem 0.75rem;
           font-size: 0.875rem;
-          font-weight: 400;
           width: 13rem;
           border-radius: 0.25rem;
           color: var(--color-background);

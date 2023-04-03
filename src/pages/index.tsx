@@ -164,15 +164,16 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Nouns Drop</title>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <title>Nouns List</title>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta
           name="description"
           content="Create allowlists from the Nouns ecosystem"
         />
 
-        <meta property="og:image" content="" />
-        <meta property="og:title" content="Nouns Drop" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:image" content="https://nounslist.com/sharing.jpg" />
+        <meta property="og:title" content="Nouns List" />
         <meta
           property="og:description"
           content="Create allowlists from the Nouns ecosystem"
