@@ -10,7 +10,7 @@ import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
 import { useEnsNames } from '@/hooks/useEnsNames'
-import { useHealthCheck } from '@/hooks/useHealthcheck'
+import { useHealthCheck } from '@/hooks/useHealthCheck'
 import { mq } from '@/styles/breakpoints'
 
 const Layout = styled.div`
