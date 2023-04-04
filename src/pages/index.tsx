@@ -206,8 +206,9 @@ export default function Home() {
                   return 'Success!'
                 },
                 error: (err) => {
+                  console.error(err)
                   setIsLoading(false)
-                  return `${err.toString().replace('Error: ', '')}`
+                  return 'Error fetching data'
                 },
               })
             }}

@@ -61,7 +61,7 @@ export async function handleSubmit(
   `
 
   const data = await request<TokenResponse>(
-    'https://nouns-data.up.railway.app/graphql',
+    'https://api.nounishdata.com/graphql',
     query,
     {
       daos,
