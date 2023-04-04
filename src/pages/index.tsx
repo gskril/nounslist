@@ -31,7 +31,7 @@ const Header = styled.div`
   }
 
   .left {
-    --offset: 1.625rem;
+    --offset: 1.75rem;
 
     gap: 0.25rem;
     display: flex;
@@ -40,6 +40,8 @@ const Header = styled.div`
     width: 10rem;
 
     @media ${mq.sm.min} {
+      --offset: 2.125rem;
+
       width: 13rem;
     }
 
@@ -51,11 +53,10 @@ const Header = styled.div`
       font-size: 5rem;
       color: var(--color-primary);
       font-family: var(--font-heading);
-      transform: translateX(1.625rem);
+      transform: translateX(var(--offset));
 
       @media ${mq.sm.min} {
         font-size: 6.375rem;
-        transform: translateX(2rem);
       }
     }
   }
