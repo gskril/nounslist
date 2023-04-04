@@ -10,6 +10,7 @@ import { Row } from '@/components/Row'
 import { Button, Container, Heading } from '@/components/atoms'
 import { handleSubmit } from '@/handler'
 import { useEnsNames } from '@/hooks/useEnsNames'
+import { useHealthCheck } from '@/hooks/useHealthcheck'
 import { mq } from '@/styles/breakpoints'
 
 const Layout = styled.div`
@@ -168,6 +169,7 @@ const Announcement = styled.div`
 `
 
 export default function Home() {
+  const isHealthy = useHealthCheck()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [addresses, setAddresses] = useState<string[]>([])
   const { names: ensNames, isLoading: ensNamesLoading } = useEnsNames(addresses)
@@ -191,12 +193,12 @@ export default function Home() {
         />
       </Head>
 
-      <Announcement>
-        <span>
-          Our API is currently having issues, please check back later for full
-          data.
-        </span>
-      </Announcement>
+      {isHealthy === false && (
+        <Announcement>
+          Our API is currently having issues and may return incomplete data,
+          please check back later.
+        </Announcement>
+      )}
 
       <Container as="main">
         <Layout>
