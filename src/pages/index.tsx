@@ -157,6 +157,16 @@ const ResultsWrapper = styled.div`
   }
 `
 
+const Announcement = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-dark-text);
+  color: var(--color-base);
+`
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [addresses, setAddresses] = useState<string[]>([])
@@ -180,6 +190,13 @@ export default function Home() {
           content="Create allowlists from the Nouns ecosystem"
         />
       </Head>
+
+      <Announcement>
+        <span>
+          Our API is currently having issues, please check back later for full
+          data.
+        </span>
+      </Announcement>
 
       <Container as="main">
         <Layout>
