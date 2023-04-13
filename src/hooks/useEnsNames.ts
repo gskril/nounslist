@@ -26,8 +26,6 @@ export function useEnsNames(addresses?: string[]) {
         )
 
         if (!batched) {
-          // TODO: figure out why some batches are skipped
-          // temporary workaround: push empty items to keep the array length the same
           results.push(batch.map(() => undefined))
           continue
         }
