@@ -41,20 +41,20 @@ export async function handleSubmit(
       $queryProposals: Boolean!
       $queryVotes: Boolean!
     ) {
-      tokens(where: { dao_in: $daos }) @include(if: $queryTokens) {
+      tokens(where: { dao_in: $daos } first: 1000) @include(if: $queryTokens) {
         owner
       }
 
-      auctions(where: { dao_in: $daos, winner_not: null })
+      auctions(where: { dao_in: $daos, winner_not: null } first: 1000)
         @include(if: $queryAuctions) {
         winner
       }
 
-      proposals(where: { dao_in: $daos }) @include(if: $queryProposals) {
+      proposals(where: { dao_in: $daos } first: 1000) @include(if: $queryProposals) {
         proposer
       }
 
-      voteCastEvents(where: { dao_in: $daos }) @include(if: $queryVotes) {
+      voteCastEvents(where: { dao_in: $daos } first: 1000) @include(if: $queryVotes) {
         voter
       }
     }
